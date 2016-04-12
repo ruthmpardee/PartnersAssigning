@@ -1,18 +1,18 @@
 var inPersonStudents = [
-	{name: 'Mohamed', currentPartner: null, previousPartners: ['Luisa', 'Jorge', 'Mateo', 'Eyasu', 'Ayo', 'Chelsea', 'Arnoldo', 'Francis', 'Ruth', 'Ralston', 'Garland', 'George', 'Lauren']},
-	{name: 'Luisa', currentPartner: null, previousPartners: ['Mohamed']},
-	{name: 'Jorge', currentPartner: null, previousPartners: ['Mateo', 'Mohamed']},
-	{name: 'Mateo', currentPartner: null, previousPartners: ['Jorge', 'Mohamed']},
-	{name: 'Eyasu', currentPartner: null, previousPartners: ['Ayo', 'Mohamed']},
-	{name: 'Ayo', currentPartner: null, previousPartners: ['Eyasu', 'Mohamed']},
-	{name: 'Chelsea', currentPartner: null, previousPartners: ['Lauren', 'Mohamed']},
-	{name: 'Arnoldo', currentPartner: null, previousPartners: ['Francis', 'Mohamed']},
-	{name: 'Francis', currentPartner: null, previousPartners: ['Arnoldo', 'Mohamed']},
-	{name: 'Ruth', currentPartner: null, previousPartners: ['Ralston', 'Mohamed']},
-	{name: 'Ralston', currentPartner: null, previousPartners: ['Ruth', 'Mohamed']},
-	{name: 'Garland', currentPartner: null, previousPartners: ['George', 'Mohamed']},
-	{name: 'George', currentPartner: null, previousPartners: ['Garland', 'Mohamed']},
-	{name: 'Lauren', currentPartner: null, previousPartners: ['Chelsea', 'Mohamed']},
+	{name: 'Mohamed', currentPartner: null, previousPartners: ['Arnoldo']},
+	{name: 'Luisa', currentPartner: null, previousPartners: []},
+	{name: 'Jorge', currentPartner: null, previousPartners: ['Mateo']},
+	{name: 'Mateo', currentPartner: null, previousPartners: ['Jorge']},
+	{name: 'Eyasu', currentPartner: null, previousPartners: ['Ayo']},
+	{name: 'Ayo', currentPartner: null, previousPartners: ['Eyasu']},
+	{name: 'Chelsea', currentPartner: null, previousPartners: ['Lauren']},
+	{name: 'Arnoldo', currentPartner: null, previousPartners: ['Francis']},
+	{name: 'Francis', currentPartner: null, previousPartners: ['Arnoldo']},
+	{name: 'Ruth', currentPartner: null, previousPartners: ['Ralston']},
+	{name: 'Ralston', currentPartner: null, previousPartners: ['Ruth']},
+	{name: 'Garland', currentPartner: null, previousPartners: ['George']},
+	{name: 'George', currentPartner: null, previousPartners: ['Garland']},
+	{name: 'Lauren', currentPartner: null, previousPartners: ['Chelsea']},
 	{name: 'Viviana', currentPartner: null, previousPartners: []},
 ];
 
@@ -48,18 +48,45 @@ var assignPartners = function(studentArr){
 	}
 
 	// Display the student and partner on the page:
-	_.each(studentArr, function(studentObj, index){
-		var table = document.getElementById('inPerson');
-		var row = table.insertRow(-1);
-		var cell = row.insertCell(-1);
-		cell.innerHTML = studentObj.name;
-		var cellPartner = row.insertCell(-1);
-		cellPartner.innerHTML = studentObj.currentPartner;
-		});
+	
 };
 
 assignPartners(inPersonStudents);
+console.log(inPersonStudents);
 
+_.each(inPersonStudents, function(studentObj, index){
+	var table = document.getElementById('inPerson');
+	var row = document.createElement('tr')
+	table.appendChild(row);
+	var cell = document.createElement('td')
+	row.appendChild(cell);
+	cell.innerHTML = studentObj.name;
+	var cellPartner = document.createElement('td')
+	row.appendChild(cellPartner);
+	cellPartner.innerHTML = studentObj.currentPartner;
+});
+
+ var clearPartners = function (studentArr){
+ 	_.each(studentArr, function (studentObj){
+ 		studentObj.previousPartners.push(studentObj.currentPartner);
+ 		studentObj.currentPartner = null;
+ 	});
+ };
+
+
+document.addEventListener("DOMContentLoaded", function(e){
+// your code here
+	var button = document.getElementById('switch');
+	button.onclick = function(e){
+		e.preventDefault();
+		// var list = document.getElementById('inPerson');
+		clearPartners(inPersonStudents);
+		console.log(inPersonStudents);	
+		assignPartners(inPersonStudents);
+	};
+});
+
+var hashtable = {}
 
 
 
